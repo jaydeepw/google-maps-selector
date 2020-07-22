@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="default_background">#F9F9F9</color>
+    <color name="rakured">#BF0001</color>
+    <color name="light_grey">#9F9F9F</color>
+    <color name="black">#000000</color>
+    <color name="list_divider">#DEDEE1</color>
+    <color name="divider_details">#F6F6F6</color>
+</resources>
