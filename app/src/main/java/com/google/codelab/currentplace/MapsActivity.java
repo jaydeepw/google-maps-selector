@@ -218,16 +218,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        //
-        // PASTE THE LINES BELOW THIS COMMENT
-        //
-
         // Enable the zoom controls for the map
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Prompt the user for permission.
         getLocationPermission();
 
+        addMarkerToMap(mMap.getCameraPosition().target, "Plceaaa");
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                // draggedMarker.setPosition(marker.getPosition());
+                /*LatLng midLatLng = mMap.getCameraPosition().target;
+                draggedMarker.setPosition(midLatLng);*/
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                Log.d(TAG, "Marker dragged to latitude" + marker.getPosition().latitude + " longitude " + marker.getPosition().longitude);
+                // draggedMarker = marker;
+                // marker.setPosition(marker.getPosition());
+            }
+        });
+
+        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                //get latlng at the center by calling
+                LatLng midLatLng = mMap.getCameraPosition().target;
+                draggedMarker.setPosition(midLatLng);
+            }
+        });
+    }
+
+    private void addMarkerToMap(LatLng latlng, String title) {
+        draggedMarker = mMap.addMarker(new MarkerOptions().position(mMap.getCameraPosition().target).title(title));
+        draggedMarker.setDraggable(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, DEFAULT_ZOOM));
+        selectLocationTextView.setVisibility(View.VISIBLE);
+        Log.d(TAG, "marker without drag " + draggedMarker.getPosition().latitude + " " + draggedMarker.getPosition().longitude);
     }
 
     /**
